@@ -73,3 +73,25 @@ class Test {
   final String fileName;
   final String testName;
 }
+
+String generateReport(String title, TestOutputParser parser) {
+  final buffer = StringBuffer();
+  buffer.writeln('''
+
+      $title:
+
+''');
+  parser.tests.forEach((Test test) {
+    buffer.writeln('${test.fileName} - ${test.testName} -> ${_formatSeconds(test.lapsedSeconds)}');
+  });
+
+  final String seconds = _formatSeconds(parser.lapsedSecondsForAllTests);
+  buffer.writeln('lapsed time for all passing tests: $seconds');
+  return buffer.toString();
+}
+
+String _formatSeconds(int totalSeconds) {
+  final String minutes = (totalSeconds / 60).floor().toString().padLeft(2, '0');
+  final String seconds = (totalSeconds % 60).toString().padLeft(2, '0');
+  return '$minutes:$seconds';
+}
