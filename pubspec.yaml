@@ -1,0 +1,3 @@
+name: parse_flutter_test_output
+environment:
+  sdk: '>=2.12.0 <3.0.0'
