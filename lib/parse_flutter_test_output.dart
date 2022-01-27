@@ -5,11 +5,6 @@
 /// For example https://logs.chromium.org/logs/flutter/buildbucket/cr-buildbucket/8824127510467410769/+/u/run_test.dart_for_tool_integration_tests_shard_and_subshard_1_6/test_stdout?format=raw
 class TestOutputParser {
   TestOutputParser(this.rawLogs) {
-    // 1 = minutes
-    // 2 = seconds
-    // 3 = file
-    // 4 = test name
-    final testPattern = RegExp(r'^(\d{2}):(\d{2}) \+\d+.*: (.*): (.*)');
     for (final String line in rawLogs.split('\n')) {
       final match = testPattern.firstMatch(line);
       if (match != null) {
@@ -35,6 +30,12 @@ class TestOutputParser {
       }
     }
   }
+
+  // 1 = minutes
+  // 2 = seconds
+  // 3 = file
+  // 4 = test name
+  static final testPattern = RegExp(r'^(\d{2}):(\d{2}) \+\d+.*: (.*): (.*)');
 
   final String rawLogs;
 
